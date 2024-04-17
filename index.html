@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calculadora de Ahorro</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <h1>Calculadora de Ahorro</h1>
+  <form id="ahorroForm">
+    <label for="salario">Salario mensual:</label>
+    <input type="number" id="salario" name="salario" required><br>
+    <label for="porcentaje">Porcentaje de ahorro (%):</label>
+    <input type="number" id="porcentaje" name="porcentaje" min="0" max="100" required><br>
+    <label for="gastos">Gastos mensuales:</label>
+    <input type="number" id="gastos" name="gastos" required><br>
+    <button id="calcular" type="button">Calcular</button>
+  </form>
+ 
+
+  <script>
+    // Obtener el botón de calcular
+    var botonCalcular = document.getElementById("calcular");
+
+    // Agregar evento clic al botón de calcular
+    botonCalcular.addEventListener("click", function(event) {
+      event.preventDefault(); // Prevenir el comportamiento predeterminado del botón
+
+      // Obtener los valores del formulario
+      var salario = parseFloat(document.getElementById("salario").value);
+      var porcentaje = parseFloat(document.getElementById("porcentaje").value);
+      var gastos = parseFloat(document.getElementById("gastos").value);
+
+      // Calcular los valores necesarios
+      var ahorro = (salario * porcentaje / 100).toFixed(2);
+      var porcentajeAhorro = ((ahorro / salario) * 100).toFixed(2);
+      var gastado = (salario - ahorro).toFixed(2);
+      var restante = (salario - ahorro - gastos).toFixed(2);
+
+      // Crear el contenido de la ventana emergente
+      var ventanaContenido = "<h2>Datos de Ahorro</h2>" +
+                             "<p>Salario: $" + salario + "</p>" +
+                             "<p>Gastado: $" + gastado + "</p>" +
+                             "<p>% Ahorrado: " + porcentajeAhorro + "%</p>" +
+                             "<p>Dinero restante: $" + restante + "</p>";
+
+      // Abrir la ventana emergente
+      var ventanaNueva = window.open("", "Datos de Ahorro", "width=400,height=300");
+
+      // Escribir el contenido en la nueva ventana
+      ventanaNueva.document.write(ventanaContenido);
+    });
+  </script>
+
+</body>
+</html>
